@@ -12,7 +12,9 @@ export const initialStore=()=>{
         title: "Do my homework",
         background: null,
       }
-    ]
+    ],
+    films: [],
+    favorite: []
   }
 }
 
@@ -26,6 +28,42 @@ export default function storeReducer(store, action = {}) {
         ...store,
         todos: store.todos.map((todo) => (todo.id === id ? { ...todo, background: color } : todo))
       };
+
+      case 'new_Film':
+
+      const { loadFilms } = action.payload
+
+      return {
+        ...store,
+        films:loadFilms};
+
+      case 'add_film':
+
+      const { newText } = action.payload
+
+      return {
+        ...store,
+        favorite: newText
+      };
+
+      case 'toggle_favorite':
+
+      const { namePersonaje } = action.payload
+
+      let agregarfavorite = []      
+      if(store.favorite.includes(namePersonaje)){
+
+        agregarfavorite = store.favorite.filter((film) =>film != namePersonaje)
+      } 
+      else{
+        agregarfavorite = [...store.favorite,namePersonaje]
+      }
+
+      return {
+        ...store,
+        favorite: agregarfavorite
+      };
+      
     default:
       throw Error('Unknown action.');
   }    
