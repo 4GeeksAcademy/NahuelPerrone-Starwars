@@ -5,18 +5,18 @@ import rigoImageUrl from "../assets/img/rigo-baby.jpg"  // Import an image asset
 import useGlobalReducer from "../hooks/useGlobalReducer";  // Import a custom hook for accessing the global state
 import { useEffect, useState } from "react";
 // Define and export the Single component which displays individual item details.
-export const Film = props => {
+export const Planetas = props => {
   // Access the global state using the custom hook.
   const { store } = useGlobalReducer()
-  const [personaje, setPersonaje] = useState ({});
+  const [planeta, setPlaneta] = useState ({});
 
   // Retrieve the 'theId' URL parameter using useParams hook.
-  const { filmId } = useParams()
+  const { planetasId } = useParams()
 
     useEffect (()=>{
-    fetch("https://www.swapi.tech/api/people/"+ filmId)
+    fetch("https://www.swapi.tech/api/planets/"+ planetasId)
     .then((response)=>response.json())
-    .then((data)=> setPersonaje (data.result.properties) )
+    .then((data)=> setPlaneta (data.result.properties) )
    
     
     },[])
@@ -34,16 +34,16 @@ export const Film = props => {
           </div>
           <div className="col-md-8">
             <div className="card-body">
-              <h1>{personaje.name}</h1>
+              <h1>{planeta.name}</h1>
               <p className="card-text m-5">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Amet et iure libero dignissimos ipsa, mollitia nihil provident quibusdam unde nesciunt, alias expedita velit ad aliquid sed iusto rem? Voluptas, quod!</p>
             </div>
           </div>
         </div>
       </div>
 
-      <p><strong>Name:</strong> {personaje.name}</p>
-      <p><strong>Gender:</strong> {personaje.gender}</p>
-      <p><strong>birth_year:</strong> {personaje.birth_year}</p>
+      <p><strong>Name:</strong> {planeta.name}</p>
+      <p><strong>Diameter:</strong> {planeta.diameter}</p>
+      <p><strong>Terrain:</strong> {planeta.terrain}</p>
 
       {/* A Link component acts as an anchor tag but is used for client-side routing to prevent page reloads. */}
       <Link to="/">
@@ -58,7 +58,7 @@ export const Film = props => {
 };
 
 // Use PropTypes to validate the props passed to this component, ensuring reliable behavior.
-Film.propTypes = {
+Planetas.propTypes = {
   // Although 'match' prop is defined here, it is not used in the component.
   // Consider removing or using it as needed.
   match: PropTypes.object

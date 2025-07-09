@@ -14,6 +14,7 @@ export const initialStore=()=>{
       }
     ],
     films: [],
+    planets:[],
     favorite: []
   }
 }
@@ -36,6 +37,14 @@ export default function storeReducer(store, action = {}) {
       return {
         ...store,
         films:loadFilms};
+        
+      case 'new_Planets':
+
+      const { loadPlanets } = action.payload
+
+      return {
+        ...store,
+        planets:loadPlanets};  
 
       case 'add_film':
 
@@ -63,6 +72,34 @@ export default function storeReducer(store, action = {}) {
         ...store,
         favorite: agregarfavorite
       };
+      
+      case 'toggle_favorite_planets':
+
+      const { namePlanets } = action.payload
+
+      let agregarPlaneta = []      
+      if(store.favorite.includes(namePlanets)){
+
+        agregarPlaneta = store.favorite.filter((planetas) =>planetas != namePlanets)
+      } 
+      else{
+        agregarPlaneta = [...store.favorite,namePlanets]
+      }
+
+      return {
+        ...store,
+        favorite: agregarPlaneta
+      };
+
+      case 'delete_favorite':
+
+      const { indexDelete } = action.payload
+
+      return {
+        ...store,
+        favorite: store.favorite.filter((favorito,index)=> index != indexDelete)
+      };
+
       
     default:
       throw Error('Unknown action.');
